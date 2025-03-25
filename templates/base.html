@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{% block title %}{% endblock %}</title>
     <style>
         * {
@@ -10,6 +10,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -22,6 +23,7 @@
             background-size: 400% 400%;
             position: relative;
             overflow: hidden;
+            padding: 20px;
         }
 
         body::before {
@@ -54,9 +56,34 @@
             animation: slideUp 0.5s ease-out;
             position: relative;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             transform-style: preserve-3d;
             perspective: 1000px;
+        }
+
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            animation: fadeIn 0.8s ease-out;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #23a6d5, #23d5ab);
+            border-radius: 3px;
         }
 
         .gear-container {
@@ -129,6 +156,8 @@
             transition: all 0.3s ease;
             background: transparent;
             transform: translateZ(0);
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         input:focus {
@@ -173,6 +202,9 @@
             overflow: hidden;
             transform: translateZ(0);
             animation: buttonPop 0.5s ease-out;
+            -webkit-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
         }
 
         @keyframes buttonPop {
@@ -253,6 +285,8 @@
             font-weight: 500;
             position: relative;
             transition: all 0.3s ease;
+            padding: 5px 0;
+            display: inline-block;
         }
 
         .switch-form a::after {
@@ -270,14 +304,96 @@
             width: 100%;
         }
 
+        /* Responsive Design */
         @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
             .container {
-                margin: 1rem;
+                margin: 0;
                 padding: 1.5rem;
+                border-radius: 15px;
             }
             
             h1 {
                 font-size: 2rem;
+            }
+
+            .gear-container {
+                width: 40px;
+                height: 40px;
+                top: -15px;
+                right: -15px;
+            }
+
+            .gear::before {
+                width: 15px;
+                height: 15px;
+            }
+
+            .gear::after {
+                height: 15px;
+            }
+
+            input {
+                padding: 10px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+
+            button {
+                padding: 10px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+        }
+
+        @media (max-width: 320px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Tablet Optimizations */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .container {
+                max-width: 90%;
+                padding: 2rem;
+            }
+        }
+
+        /* Landscape Mode Optimizations */
+        @media (max-height: 600px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .container {
+                margin: 10px 0;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* High DPI Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .gear {
+                border-width: 3px;
             }
         }
     </style>
